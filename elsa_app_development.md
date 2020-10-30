@@ -165,7 +165,7 @@ v = n.robot_api.memory.getVariable(
 )
 ```
 
-### How to access files bundled with the app
+### 2.2. How to access files bundled with the app
 
 In case you have a file that you need to access via the app.py, you must bundle it with the python file. Let’s say you have bundled a .wav file and you want to replay it via the speakers. The correct way to do it follows:
 
@@ -199,15 +199,15 @@ except Exception as e:
     print(e)
 ```
 
-## Frontend - The js files
+## 3. Frontend - The js files
 
 Each application can be accompanied with a custom user interface. If you want to have a custom UI, you **must** have a folder named **`ui`** and inside at least a file called **`main.html`**. Of course you can have whatever else you need in this folder, but you must have in mind to access them (from js) as relative files!
 
-### The concept of communicating via Redis
+### 3.1. The concept of communicating via Redis
 
 Currently, the core application (the python part) is executed in a container (Docker), whereas the UI must be executed in the host, since it raises a web browser (Chromium). In order to get/send commands from both you can (or must) use Redis. Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker, which has libraries for both JS and Python. Since it is in-memory, the application which is in-container can communicate seamlessly with the Chromium which is at the host.
 
-### How to connect an html/js UI with app.py
+### 3.2. How to connect an html/js UI with app.py
 
 Let’s say we want to create an application that shows an image and two buttons. The first button is a ping/pong toggle and the second terminates the application. The UI looks like this: 
 
@@ -286,7 +286,7 @@ for chunk in r.iter_content(chunk_size=None, decode_unicode=True):
 r.close()
 ```
 
-## How to bundle into an app
+## 4. How to bundle into an app
 
 - **Required files**:
   - **app.info** The app info will list the following parameters in a yaml format:
@@ -306,11 +306,11 @@ r.close()
 
 Lastly, you will need to compress the application files. To do so use the command `tar -zcvf file.tar.gz /path/to/directory`.
 
-## Voice Commands syntax
+## 5. Voice Commands syntax
 
 An optional “commands.txt” document will be provided with the application's files that contain these commands in separate lines. The system adds the name of the application as a voice command by default, so you don't have to explicitly write it. For better app usage and user experience we advise you to create a few sentences (3-5 is a good number) that are closely related to the context of your application and don't rely only on the default case. This template language is based on Rhasspy's sentence syntax. However not all functionalities of Rhasspy's language are supported from our system and, as you might see, intents remain hidden to simplify development. So if you don't want to confuse yourself, just stick only with this guide.
 
-### Basic Syntax
+### 5.1. Basic Syntax
 
 To get started, all voice commands will be listed in separate lines across the document as below:
 
@@ -319,7 +319,7 @@ To get started, all voice commands will be listed in separate lines across the d
 
 If the user says `Ξεκίνα μια εφαρμογή` your application will start. **Note** that after your application has started, all voice communications will be handled entirely from your application.
 
-### Optional words
+### 5.2. Optional words
 
 You can specify optional word(s) by surrounding them with `[brackets]` like:
 
@@ -338,7 +338,7 @@ If one of your sentences happens to start with an optional word, this can lead t
 
 - `\[Αυτή] η πρόταση θέλει προσοχή`
 
-### Alternatives
+### 5.3. Alternatives
 
 A set of items where only one of is matched at a time can be specified `(like | this)`.
 
@@ -349,7 +349,7 @@ This will internally create all three next sentences:
 - `Θέλω την εφαρμογή`
 - `Θέλω κάποια εφαρμογή`
 
-### Rules
+### 5.4. Rules
 
 Rules allow you to reuse parts of your sentences through many commands.
 
@@ -357,6 +357,6 @@ Rules allow you to reuse parts of your sentences through many commands.
 - `Αυτή είναι <επιλογές> εφαρμογή`
 - `<επιλογές> εφαρμογή`
 
-## Upload in SYTIES store and test
+## 6. Upload in SYTIES store and test
 
 In order to upload an application to the Syties store you must be logged in with a developer account (Role-> View as Developer). Then from the sidebar navigate to “Upload app” and fill in the form. Click upload, and then you can view your uploaded apps by selecting `My applications` from the sidebar. To test your app, switch role to `View as Owner`, navigate to `Applications` from the sidebar,  click on your application, and then select your device to install it (it might take a minute or two). 
