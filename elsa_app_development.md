@@ -299,7 +299,7 @@ r.close()
   - **requirements.txt** The file containing all the python libraries to be imported in your app.py (e.g. requests==2.24.0). You can use the python module [pipreqs](https://pypi.org/project/pipreqs/).
 - **Optional files:**
   - **ui folder containing the main.html**  The ui of the application as described above
-  - **commands.txt**  Optional file containing custom voice commands with which the user will be able to start this application. By default the application will start if the user says its name. Further syntax information is written below
+  - **voice-commands.txt**  Optional file containing custom voice commands with which the user will be able to start this application. By default the application will start if the user says its name. Further syntax information is written below.
   - **init.conf** The init conf will list the initial parameters in a yaml format, specifying the name and type and placeholder of each parameter. (e.g. as follows)
 
 ![Screenshot 2020-10-30 105814](https://user-images.githubusercontent.com/5663091/97680102-d4aa0800-1a9e-11eb-8ade-0f0910470a86.png)
@@ -308,7 +308,7 @@ Lastly, you will need to compress the application files. To do so use the comman
 
 ## 5. Voice Commands syntax
 
-An optional “commands.txt” document will be provided with the application's files that contain these commands in separate lines. The system adds the name of the application as a voice command by default, so you don't have to explicitly write it. For better app usage and user experience we advise you to create a few sentences (3-5 is a good number) that are closely related to the context of your application and don't rely only on the default case. This template language is based on Rhasspy's sentence syntax. However not all functionalities of Rhasspy's language are supported from our system and, as you might see, intents remain hidden to simplify development. So if you don't want to confuse yourself, just stick only with this guide.
+An optional “voice-commands.txt” document will be provided with the application's files that contain these commands in separate lines. The system adds the name of the application as a voice command by default, so you don't have to explicitly write it. For better app usage and user experience we advise you to create a few sentences (3-5 is a good number) that are closely related to the context of your application and don't rely only on the default case. This template language is based on Rhasspy's sentence syntax. However not all functionalities of Rhasspy's language are supported from our system and, as you might see, intents remain hidden to simplify development. So if you don't want to confuse yourself, just stick only with this guide.
 
 ### 5.1. Basic Syntax
 
