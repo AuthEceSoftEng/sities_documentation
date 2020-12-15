@@ -314,8 +314,11 @@ An optional “voice-commands.txt” document will be provided with the applicat
 
 To get started, all voice commands will be listed in separate lines across the document as below:
 
-- `Θέλω την εφαρμογή μου`
-- `Ξεκίνα μια εφαρμογή`
+```
+Θέλω την εφαρμογή μου
+Ξεκίνα μια εφαρμογή
+```
+
 
 If the user says `Ξεκίνα μια εφαρμογή` your application will start. **Note** that after your application has started, all voice communications will be handled entirely from your application.
 
@@ -323,39 +326,47 @@ If the user says `Ξεκίνα μια εφαρμογή` your application will st
 
 You can specify optional word(s) by surrounding them with `[brackets]` like:
 
-- `Θέλω την εφαρμογή [μου]`
-- `Ξεκίνα [τώρα] μια εφαρμογή`
+```
+Θέλω την εφαρμογή [μου]
+Ξεκίνα [τώρα] μια εφαρμογή
+```
 
 This will internally create all four next sentences:
-- `Θέλω την εφαρμογή`
-- `Θέλω την εφαρμογή μου`
-- `Ξεκίνα τώρα μια εφαρμογή`
-- `Ξεκίνα μια εφαρμογή`
+```
+Θέλω την εφαρμογή
+Θέλω την εφαρμογή μου
+Ξεκίνα τώρα μια εφαρμογή
+Ξεκίνα μια εφαρμογή
+```
 
 **Special case**
 
 If one of your sentences happens to start with an optional word, this can lead to an internal problem. In order to avoid that, you should use a backslash escape sequence, like:
 
-- `\[Αυτή] η πρόταση θέλει προσοχή`
+`\[Αυτή] η πρόταση θέλει προσοχή`
 
 ### 5.3. Alternatives
 
 A set of items where only one of is matched at a time can be specified `(like | this)`.
 
-- `Θέλω (μία | την | κάποια) εφαρμογή`
+`Θέλω (μία | την | κάποια) εφαρμογή`
 
 This will internally create all three next sentences:
-- `Θέλω μία εφαρμογή`
-- `Θέλω την εφαρμογή`
-- `Θέλω κάποια εφαρμογή`
+```
+Θέλω μία εφαρμογή
+Θέλω την εφαρμογή
+Θέλω κάποια εφαρμογή
+```
 
 ### 5.4. Rules
 
 Rules allow you to reuse parts of your sentences through many commands.
 
-- `επιλογές = (μία | η | κάποια)`
-- `Αυτή είναι <επιλογές> εφαρμογή`
-- `<επιλογές> εφαρμογή`
+```
+επιλογές = (μία | η | κάποια)
+Αυτή είναι <επιλογές> εφαρμογή
+<επιλογές> εφαρμογή
+```
 
 ## 6. Upload in SYTIES store and test
 
