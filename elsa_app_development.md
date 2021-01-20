@@ -60,6 +60,12 @@ out = rapi.speak(InputMessage({
     'language': Languages.EL # or Languages.EN for English
 }))
 
+# Listen using the microphone and Google API
+out = rapi.listen(InputMessage({
+    "language": Languages.EL,
+    "duration": 5
+}))
+
 # Get an image from camera
 out = rapi.captureImage(InputMessage({
     'width': 640,
