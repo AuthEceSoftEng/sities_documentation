@@ -59,6 +59,7 @@ out = rapi.speak(InputMessage({
     'volume': 100, # volume may be suppressed by the ELSA's global volume
     'language': Languages.EL # or Languages.EN for English
 }))
+print(out.data['text']) # prints the recognized text
 
 # Listen using the microphone and Google API
 out = rapi.listen(InputMessage({
