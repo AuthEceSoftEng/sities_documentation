@@ -206,6 +206,28 @@ except Exception as e:
     print(e)
 ```
 
+### 2.3 How to handle Logger Info/Error messages
+
+You can use the existing Logger to print information or error messages throughout your application. Some important errors, such as network or authentication failures, should also be stated in the platform. In order to do that, you have to add the special token `_sities_platform_critical_error_` inside your error message like this:
+
+```
+python
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+from commlib.logger import Logger
+log = Logger("testing")
+rapi = RobotAPI(logger=log)
+InputMessage.logger = log
+
+
+log.info("Everything is going well!")
+
+log.error("Something went wrong!")
+
+log.error("_sities_platform_critical_error_: Major error occured!!")
+
+```
+
 ## 3. Frontend - The js files
 
 Each application can be accompanied with a custom user interface. If you want to have a custom UI, you **must** have a folder named **`ui`** and inside at least a file called **`main.html`**. Of course you can have whatever else you need in this folder, but you must have in mind to access them (from js) as relative files!
