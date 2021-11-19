@@ -171,8 +171,73 @@ v = n.robot_api.memory.getVariable(
     variable = TekVariables.QR_DETECTION
 )
 ```
+### 2.2. How to access elsa's bracelet data with the app
 
-### 2.2. How to access files bundled with the app
+Elsa's bracelet is constantly streaming data about the user's activity state, health status as well as the device's battery level. In order to access this data via the app.py, one has to simply subscribe to the appropriate topic in the local redis server. 
+
+Bellow is a list of the available topics, their payload as well as a short discription for each and every one of them:
+- ```m5stickC.panic_button	{"timestamp": <unix-time>}``` 			Receives a message when the user pressed the panic button.
+- ```m5stickC.fall_detected 	{"timestamp": <unix-time>}``` 			Receives a message when the bracelet detects that the user has fallen
+- ```m5stickC.activity.started	{"timestamp": <unix-time>}``` 			Receives a message when the user starts moving for about 2 seconds.
+- ```m5stickC.activity.stopped	{"timestamp": <unix-time>}``` 			Receives a message when the user stops moving for at least 2 seconds. Requires that the user was on moving state before.
+- ```m5stickC.activity.steps	{"steps": int}```   				Receives a message containing the number of steps the user has done, right after a stopped motion activity detection.
+- ```m5stickC.battery		{"timestamp": <unix-time>, "voltage": float}``` Receives a message every 20 sec in case the battery is full or when it runs out.
+
+To correctly subscribe to one of the previously listed topics follow the code segment bellow:
+
+```python
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+from commlib.transports.redis import Subscriber, ConnectionParameters
+import time
+import json
+
+# Topic to which we wish to subscribe
+topic_to_sub = "m5stickC.panic_button"
+
+/* 
+ * Callback function which will be triggerd when we will receive a message in the specified topic
+ *
+ * Args:
+ *		msg: The serialized msg data
+ *		meta: Info & properties used for the communication
+ */
+def panic_button_callback(msg, meta):
+    try:
+    	# Deserialize the data (string -> dictionary)
+        payload = json.loads(msg)
+    
+        print(f"Received panic button message: {payload}!")
+    except Exception as e:
+    	print(e)
+
+if __name__ == "__main__":
+    try:
+        # Declare brokers connection parameters, for local use no credentials are required
+        conn_params = ConnectionParameters()
+        conn_params.host = "localhost" 
+        conn_params.port = 6379
+	
+	# Create a redis subscriber by passing the connection parameters, the topic & the callback function when we receive a message
+        sub = Subscriber(conn_params=conn_params,
+                       topic=FitnessApp.panic_button_topic,
+                       on_message=self._panic_callback)
+		       
+	# Activate the subscriber (Non blocking)
+	sub.run_forever()
+    	
+	# We do other tasks of wait indefinitely for a message
+	While True:
+	    time.sleep(1)
+    except Exception as e:
+        print(e)
+```
+
+Lastly here is the typical value of the **meta** parameter in the callback function:
+- ```{'timestamp': 1637278969221062, 'properties': {'content_type': 'application/json', 'content_encoding': 'utf8'}}```
+
+### 2.3. How to access files bundled with the app
 
 In case you have a file that you need to access via the app.py, you must bundle it with the python file. Let’s say you have bundled a .wav file and you want to replay it via the speakers. The correct way to do it follows:
 
@@ -206,7 +271,7 @@ except Exception as e:
     print(e)
 ```
 
-### 2.3 How to handle Logger Info/Error messages
+### 2.4. How to handle Logger Info/Error messages
 
 You can use the existing Logger to print information or error messages throughout your application. Some important errors, such as network or authentication failures, should also be stated in the platform. In order to do that, you have to add the special token `_sities_platform_critical_error_` inside your error message like this:
 
