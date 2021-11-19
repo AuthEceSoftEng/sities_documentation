@@ -176,12 +176,12 @@ v = n.robot_api.memory.getVariable(
 Elsa's bracelet is constantly streaming data about the user's activity state, health status as well as the device's battery level. In order to access this data via the app.py, one has to simply subscribe to the appropriate topic in the local redis server. 
 
 Bellow is a list of the available topics, their payload as well as a short discription for each and every one of them:
-- ```m5stickC.panic_button	{"timestamp": <unix-time>}``` 			Receives a message when the user pressed the panic button.
-- ```m5stickC.fall_detected 	{"timestamp": <unix-time>}``` 			Receives a message when the bracelet detects that the user has fallen
-- ```m5stickC.activity.started	{"timestamp": <unix-time>}``` 			Receives a message when the user starts moving for about 2 seconds.
-- ```m5stickC.activity.stopped	{"timestamp": <unix-time>}``` 			Receives a message when the user stops moving for at least 2 seconds. Requires that the user was on moving state before.
-- ```m5stickC.activity.steps	{"steps": int}```   				Receives a message containing the number of steps the user has done, right after a stopped motion activity detection.
-- ```m5stickC.battery		{"timestamp": <unix-time>, "voltage": float}``` Receives a message every 20 sec in case the battery is full or when it runs out.
+- ```m5stickC.panic_button```, ```{"timestamp": <unix-time>}``` Receives a message when the user pressed the panic button.
+- ```m5stickC.fall_detected```, ```{"timestamp": <unix-time>}``` Receives a message when the bracelet detects that the user has fallen
+- ```m5stickC.activity.started```, ```{"timestamp": <unix-time>}``` Receives a message when the user starts moving for about 2 seconds.
+- ```m5stickC.activity.stopped```, ```{"timestamp": <unix-time>}``` Receives a message when the user stops moving for at least 2 seconds. Requires that the user was on moving state before.
+- ```m5stickC.activity.steps```, ```{"steps": int}``` Receives a message containing the number of steps the user has done, right after a stopped motion activity detection.
+- ```m5stickC.battery```, ```{"timestamp": <unix-time>, "voltage": float}``` Receives a message every 20 sec in case the battery is full or when it runs out.
 
 To correctly subscribe to one of the previously listed topics follow the code segment bellow:
 
@@ -219,15 +219,18 @@ if __name__ == "__main__":
         conn_params.host = "localhost" 
         conn_params.port = 6379
 	
-	# Create a redis subscriber by passing the connection parameters, the topic & the callback function when we receive a message
-        sub = Subscriber(conn_params=conn_params,
+	/* 
+	 * Create a redis subscriber by passing the connection parameters, 
+	 * the topic & the callback function when we receive a message
+         */
+	sub = Subscriber(conn_params=conn_params,
                        topic=FitnessApp.panic_button_topic,
                        on_message=self._panic_callback)
 		       
 	# Activate the subscriber (Non blocking)
 	sub.run_forever()
     	
-	# We do other tasks of wait indefinitely for a message
+	# We do other tasks or wait indefinitely for a message
 	While True:
 	    time.sleep(1)
     except Exception as e:
