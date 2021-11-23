@@ -405,65 +405,15 @@ Lastly, you will need to compress the application files. To do so use the comman
 
 ## 5. Voice Commands syntax
 
-An optional “voice-commands.txt” document will be provided with the application's files that contain these commands in separate lines. The system adds the name of the application as a voice command by default, so you don't have to explicitly write it. For better app usage and user experience we advise you to create a few sentences (3-5 is a good number) that are closely related to the context of your application and don't rely only on the default case. This template language is based on Rhasspy's sentence syntax. However not all functionalities of Rhasspy's language are supported from our system and, as you might see, intents remain hidden to simplify development. So if you don't want to confuse yourself, just stick only with this guide.
-
-### 5.1. Basic Syntax
-
-To get started, all voice commands will be listed in separate lines across the document as below:
+An optional “voice-commands.txt” document will be provided with the application's files that contain these commands in separate lines. The system adds the name of the application as a voice command by default, so you don't have to explicitly write it. For better app usage and user experience we advise you to create a few sentences (3-5 is a good number) that are closely related to the context of your application and don't rely only on the default case. The commands should only contain lowercased words (except for words that start with a capital letter) and numbers. An example file is written below:
 
 ```
-Θέλω την εφαρμογή μου
-Ξεκίνα μια εφαρμογή
+θέλω την εφαρμογή μου
+ξεκίνα μια εφαρμογή
+ξεκίνησε την εφαρμογή του Γιάννη
+την εφαρμογή 4
 ```
 
-
-If the user says `Ξεκίνα μια εφαρμογή` your application will start. **Note** that after your application has started, all voice communications will be handled entirely from your application.
-
-### 5.2. Optional words
-
-You can specify optional word(s) by surrounding them with `[brackets]` like:
-
-```
-Θέλω την εφαρμογή [μου]
-Ξεκίνα [τώρα] μια εφαρμογή
-```
-
-This will internally create all four next sentences:
-```
-Θέλω την εφαρμογή
-Θέλω την εφαρμογή μου
-Ξεκίνα τώρα μια εφαρμογή
-Ξεκίνα μια εφαρμογή
-```
-
-**Special case**
-
-If one of your sentences happens to start with an optional word, this can lead to an internal problem. In order to avoid that, you should use a backslash escape sequence, like:
-
-`\[Αυτή] η πρόταση θέλει προσοχή`
-
-### 5.3. Alternatives
-
-A set of items where only one of is matched at a time can be specified `(like | this)`.
-
-`Θέλω (μία | την | κάποια) εφαρμογή`
-
-This will internally create all three next sentences:
-```
-Θέλω μία εφαρμογή
-Θέλω την εφαρμογή
-Θέλω κάποια εφαρμογή
-```
-
-### 5.4. Rules
-
-Rules allow you to reuse parts of your sentences through many commands.
-
-```
-επιλογές = (μία | η | κάποια)
-Αυτή είναι <επιλογές> εφαρμογή
-<επιλογές> εφαρμογή
-```
 
 ## 6. Upload in SYTIES store and test
 
