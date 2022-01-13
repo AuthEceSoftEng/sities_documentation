@@ -67,12 +67,12 @@ out = rapi.listen(InputMessage({
 }))
 print(out.data['text']) # prints the recognized text
 
-/* 
+'''
     Listen using voice of activity detection(VAD) and convert it to text using Google API
     In this setting the record will start the human voice is detected and then it will stop,
     when no voice is detected for at least <voice_timeout> secs". Defaul value is: 1.5 secs
-    You can change voice_timeout seconds in the elsa configuraiton file in streamsim
-*/
+    You can change voice_timeout seconds in the elsa configuraiton file in streamsim.
+'''
 out = rapi.listen(InputMessage({
     "language": Languages.EL,
     "duration": -1
