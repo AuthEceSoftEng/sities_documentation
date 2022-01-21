@@ -60,23 +60,20 @@ out = rapi.speak(InputMessage({
     'language': Languages.EL # or Languages.EN for English
 }))
 
-# Listen using the microphone and Google API
+# Listen using the microphone and Google API 
+# By passing (-1) to duration, VAD module is 
+# activated in order to record only human speech
 out = rapi.listen(InputMessage({
     "language": Languages.EL,
     "duration": 5
 }))
 print(out.data['text']) # prints the recognized text
 
-'''
-    Listen using voice of activity detection(VAD) and convert it to text using Google API
-    In this setting the record will start the human voice is detected and then it will stop,
-    when no voice is detected for at least <voice_timeout> secs". Defaul value is: 1.5 secs
-    You can change voice_timeout seconds in the elsa configuraiton file in streamsim.
-'''
-out = rapi.listen(InputMessage({
-    "language": Languages.EL,
-    "duration": -1
+# Train VAD module (noise level)
+out = rapi.trainVad(InputMessage({
+    "duration": 3
 }))
+print(out.data['status']) # print the returned status, True is for succesfull training
 
 print(out.data['text']) # prints the recognized text
 
