@@ -69,12 +69,6 @@ out = rapi.listen(InputMessage({
 }))
 print(out.data['text']) # prints the recognized text
 
-# Train VAD module (noise level)
-out = rapi.trainVad(InputMessage({
-    "duration": 3
-}))
-print(out.data['status']) # print the returned status, True is for succesfull training
-
 # Get an image from camera
 out = rapi.captureImage(InputMessage({
     'width': 640,
