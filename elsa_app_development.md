@@ -52,7 +52,7 @@ out = rapi.replaySound(InputMessage({
     'volume': 100 # volume may be suppressed by the ELSA's global volume
 }))
 
-# Shutdown or power-on speakers by controlling the amplifier
+# Shutdown("state":False) or power-on("state":True) speakers by controlling the amplifier
 # This utility is required in case we want to play sound witohut using 
 # the api and the amplifier setting in elsa.conf is True which means 
 # that the amplifier will be normally in shitdown mode.
