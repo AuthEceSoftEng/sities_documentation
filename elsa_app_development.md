@@ -417,6 +417,35 @@ r.close()
   - **voice-commands.txt**  Optional file containing custom voice commands with which the user will be able to start this application. By default the application will start if the user says its name. Further syntax information is written below.
   - **init.conf** The init conf will list the initial parameters in a yaml format, specifying the name and type and placeholder of each parameter. (e.g. as follows)
 
+### 4.1 How to access initial parameters in the app
+
+In case an application has one parameter, it can be accessed and stored in variable `param_1` using the below code.
+
+```
+def read_init_params():
+    params_file = os.path.join(os.path.dirname(sys.argv[0]), 'init.conf')
+    if not os.path.isfile(params_file):
+        print('App params file <{}> does not exist'.format(params_file))
+        sys.exit(1)
+    with open(params_file, 'r') as stream:
+        try:
+            params = yaml.safe_load(stream)
+            return params
+        except yaml.YAMLError as exc:
+            print(exc)
+            sys.exit(1)
+        except Exception as exc:
+            print(exc)
+            sys.exit(1)
+
+if __name__ == '__main__':
+
+    try:
+        app_params = read_init_params()
+        param_1 = app_params['params'][0]['value']
+
+```
+
 ![Screenshot 2020-10-30 105814](https://user-images.githubusercontent.com/5663091/97680102-d4aa0800-1a9e-11eb-8ade-0f0910470a86.png)
 
 Lastly, you will need to compress the application files. To do so use the command `tar -zcvf file.tar.gz /path/to/directory`.
