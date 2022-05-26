@@ -448,7 +448,7 @@ if __name__ == '__main__':
 
 ![Screenshot 2020-10-30 105814](https://user-images.githubusercontent.com/5663091/97680102-d4aa0800-1a9e-11eb-8ade-0f0910470a86.png)
 
-Lastly, you will need to compress the application files. To do so use the command `tar -zcvf file.tar.gz /path/to/directory`.
+Lastly, you will need to compress the application files. To do so use the command `tar -zcvf file.tar.gz -C /path/to/directory`.
 
 ## 5. Voice Commands syntax
 
